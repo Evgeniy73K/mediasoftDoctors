@@ -84,7 +84,6 @@ public class Main {
 
                     case 4:
                         int receptionId;
-                        String newStatus;
 
                         try {
                         System.out.println("Type reception id");
