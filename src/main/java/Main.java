@@ -11,9 +11,13 @@ public class Main {
         List<Patient> patients = new ArrayList<>();
         List<Doctor> doctors = new ArrayList<>();
         List<Reception> receptionList = new ArrayList<>();
+        String[] statuses = {"New", "In progress", "Cancel"};
+
         if(Authentication.authenticate() == 0) {
+
             Scanner sc = new Scanner(System.in);
             int value;
+
             do {
                 System.out.println("1-Create doctor");
                 System.out.println("2-Create patient");
@@ -26,6 +30,7 @@ public class Main {
                 System.out.println("9-exit");
                 System.out.println("Type command: ");
                 value = sc.nextInt();
+
                 switch (value) {
                     case 1:
                         String doctorName;
@@ -51,11 +56,13 @@ public class Main {
                         Patient patient = new Patient(patientName, patientLastName, Date.from(Instant.now()));
                         patients.add(patient);
                         break;
+
                     case 3:
                         String date;
                         int doctorId;
                         int patientId;
-                        String status;
+                        int indexStatus;
+
                         try {
                         System.out.println("Type date");
                         date = sc.next();
@@ -65,26 +72,32 @@ public class Main {
                         System.out.println("Type patient id");
                         patientId = sc.nextInt();
                         Patient selectPatient = patients.get(patientId);
-                        System.out.println("Select status");
-                        status = sc.next();
-                        Reception reception = new Reception(selectDoctor, selectPatient, date, status);
+                        System.out.println("Select status 0-New");
+                        System.out.println("Select status 1-In progress");
+                        System.out.println("Select status 1-Cancel");
+                        indexStatus = sc.nextInt();
+                        Reception reception = new Reception(selectDoctor, selectPatient, date, statuses[indexStatus]);
                         receptionList.add(reception); } catch (Exception e){
                             System.out.println("Invalid data try again");
                         }
-
                         break;
+
                     case 4:
                         int receptionId;
                         String newStatus;
+
                         try {
                         System.out.println("Type reception id");
                         receptionId = sc.nextInt();
-                        System.out.println("Type new status");
-                        newStatus = sc.next();
-                        receptionList.get(receptionId).setStatus(newStatus);
+                        System.out.println("Select status 0-New");
+                        System.out.println("Select status 1-In progress");
+                        System.out.println("Select status 1-Cancel");
+                        indexStatus = sc.nextInt();
+                        receptionList.get(receptionId).setStatus(statuses[indexStatus]);
                         break;} catch (Exception e) {
                             System.out.println("Invalid data try again");
                         }
+
                     case 5:
                         try{
                         System.out.println("Type patient id");
@@ -109,6 +122,7 @@ public class Main {
 
                         }
                         break;
+
                     case 7:
                         try{
                         System.out.println("Type patientId");
@@ -121,6 +135,7 @@ public class Main {
                         break;} catch (Exception e) {
                             System.out.println("Invalid data try again");
                         }
+
                     case 8:
                         try {
                         System.out.println("Type patientId");
@@ -129,6 +144,7 @@ public class Main {
                         break;} catch (Exception e){
                             System.out.println("Invalid data try again");
                         }
+
                     case 9:
                         System.out.println("Exit");
                         break;
